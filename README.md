@@ -1,138 +1,149 @@
-# <Name>
+# ProtoSwitch
 
-# <Title>
+# FPGA-Based System-on-Chip Projects
 
 ### Description
 
-
+- This project collection showcases advanced FPGA designs for high-performance, real-time, and embedded systems using VHDL
+- Each subproject explores a different domain: CPU design, high-speed memory, PCIe interfacing, video pipelines, neural network acceleration, ADC front-ends, and Ethernet switches
 
 ---
 
 ## NOTICE
 
-
+- Please read through this `README.md` to better understand the project's source code and setup instructions
+- Also, make sure to review the contents of the `License/` directory
+- Your attention to these details is appreciated — enjoy exploring the project!
 
 ---
 
 ## Problem Statement
 
-
+- Modern embedded and high-performance systems require custom SoCs and accelerators that meet strict performance, bandwidth, and real-time constraints
+- Off-the-shelf microcontrollers or general-purpose processors often fall short in flexibility and timing
+- FPGA-based systems fill this gap
 
 ---
 
 ## Project Goals
 
-### <Goal 1>
+### Develop Reusable FPGA SoC IP Blocks
 
+- Useful for networking, signal processing, AI training, etc.
 
+### Build Expertise Across Hardware and Firmware Layers
 
-### <Goal 2>
-
-
+- Gain hands-on experience integrating logic, memory, and peripherals in cohesive systems
 
 ---
 
 ## Tools, Materials & Resources
 
-### <Tool 1>
+### Toolchain Setup
 
+- Xilinx Vivado, ModelSim/QuestaSim, SymbiYosys, GTKWave
 
+### Toolchain Setup
 
-### <Material 1>
+- FPGA development boards with DDR3/DDR4, SFP/SFP+ cages, HDMI interfaces, and high-speed ADCs
 
+### Reference Standards and Documentation
 
-
-### <Resource 1>
-
-
+- RISC-V ISA specs, AMBA AHB/Wishbone documentation, Ethernet/PCIe standards
 
 ---
 
 ## Design Decision
 
-### <Decision 1>
+### Prioritize Predictable Hardware Behavior
 
+- Use of VHDL for strict hardware determinism, clarity, and toolchain compatibility
 
+### Use Bus-Centric Interconnects for Scalability
 
-### <Decision 2>
+- All systems are built around bus-centric architectures (AHB, AXI, Wishbone) for extensibility
 
+### Validate with Simulation Before Synthesis
 
-
-### <Decision 3>
-
-
+- Testbenches and formal checks before any synthesis
 
 ---
 
 ## Features
 
-### <Feature 1>
+### Fully Custom RISC-V SoC Architecture
 
+- Custom RV32IM pipelined CPU with CSR, ALU, decoder, and memory controller
 
-### <Feature 2>
+### High-Speed Memory Integration
 
+- DDR3/DDR4 controller with PHY calibration, burst scheduling, and memory-mapped I/O
 
-### <Feature 3>
+### Peripheral and Accelerator IP Blocks
 
-
+- PCIe Gen2 x1 DMA engine, RT video processor pipeline, CNN accelerator, and 10G switch fabric
 
 ---
 
 ## Block Diagram
 
-### Example: Node.js System Diagram
-
 ```plaintext
-                                     ┌───────────────────┐
-                                     │    Event Queue    │        ┌───────────────────────────────────────────────┐
-                                     │                   ├── → ───┼──────┐                                        │
-   ┌───────────────────┐             │ ╔═══════════════╗ │        │      │               LIB UV                   │
-   │                   │             │ ║   Callback    ║ ├─── ← ──┼───┐  │          Asynchronous I/O              │
-   │    Application    │             │ ╚═══════════════╝ │        │   ↓  ↑             C Library                  │
-   │                   │             └──────┬──────┬─────┘        │   │  │ Event Loop            Worker Threads   │
-   └───┬────────────┬──┘                    │      │              │  ┌┴──┴────────────┐Blocking┌────────────────┐ │
-       │            │                       ↓      ↑              │  │╔══════════════╗├── → ───┤╔══════════════╗│ │
-       ↓ JavaScript ↑                       │      │              │  │║              ║│        │║   Process    ║│ │
-       │            │               ┌───────┴──────┴──────┐       │  │╚══════════════╝├─── ← ──┤╚══════════════╝│ │
-┌──────┴────────────┴──────┐        │    C++ Bindings     │       │  └────────────────┘Callback└────────────────┘ │
-│                          ├── → ───┤      Node API       │       └───────────────────────────────────────────────┘
-│   V8 JavaScript Engine   │        │  ╓───────────────╖  │
-│                          ├─── ← ──┤  ║ OS Operations ║  │
-└──────────────────────────┘        │  ╙───────────────╜  │
-                                    └─────────────────────┘
+                                  ┌───────────────────────────┐
+                                  │        Peripherals        │
+                                  │ UART │ SPI │ GPIO │ HDMI  │
+                                  └──────────┬────────────────┘
+                                             ↓
+                                  ┌──────────┴──────────┐
+                                  │ Memory Subsystem    │
+                                  │  DDR3 / DDR4 Ctrl   │
+                                  └──────────┬──────────┘
+                                             ↓
+                                  ┌──────────┴──────────┐
+                                  │   RISC-V CPU Core   │
+                                  │ ALU │ REG │ CSR │ PC│
+                                  └──────────┬──────────┘
+                                             ↓
+                                  ┌──────────┴──────────┐
+                                  │ Bus Fabric (AHB/WB) │
+                                  └──────────┬──────────┘
+                                             ↓
+                                  ┌──────────┴──────────┐
+                                  │    FPGA I/O + PHYs  │
+                                  │ SGMII │ PCIe │ ADC  │
+                                  └─────────────────────┘
 
-Chars: ─ │ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ ═ ║ ╔ ╗ ╚ ╝ ╠ ╣ ╦ ╩ ╬ ← → ↑ ↓ ↗ ↘ ↙ ↖ ↔ ↕ ╓ ╙ ╖ ╜ ╒ ╘ ╕ ╛
 ```
 
 ---
 
 ## Functional Overview
 
-
+- This project ecosystem is composed of multiple standalone subprojects that implement high-performance digital systems with reusable and parameterized VHDL modules
+- Every block includes testbenches, simulation results, and constraints for real-world synthesis and deployment
 
 ---
 
 ## Challenges & Solutions
 
-### <Challenge 1>
+### Timing Closure for High-Speed PHYs
 
+- Used IDELAY/ODDR primitives, phase-aligned constraints, and post-route timing reports to guarantee robust PHY behavior
 
+### Formal Verification of Control Logic
 
-### <Challenge 2>
-
-
+- Applied SymbiYosys to prove liveness/safety properties on finite state machines and memory controllers
 
 ---
 
 ## Lessons Learned
 
-### <Lesson for 1>
+### High-Speed Design Requires System-Level Thinking
 
+- It demands PCB design, power integrity, and low-jitter clock architecture
 
+### Reusability Depends on Modularity and Interface Contracts
 
-### <Lesson for 2>
-
-
+- Modularization and interface standardization are critical to scaling FPGA projects across domains
 
 ---
 
@@ -142,37 +153,23 @@ Chars: ─ │ ┌ ┐ └ ┘ ├ ┤ ┬ ┴ ┼ ═ ║ ╔ ╗ ╚ ╝ ╠ �
 root/
 ├── License/
 │   ├── LICENSE.md
+│   │
 │   └── NOTICE.md
 │
 ├── .gitattributes
 │
 ├── .gitignore
 │
-├── README.md
-│
-├── folder_1/
-│   ├── file_1
-│   ├── file_2
-│   └── file_3
-│
-└── folder_2/
-    ├── subfolder_1/
-    │   └── file_1
-    │
-    ├── subfolder_2/
-    │   └── sub-subfolder_1/
-    │       └── file_1
-    │
-    ├── file_1
-    ├── file_2
-    └── file_3
-For good rendering: do not use tabs, but 4 spaces
+└── README.md
+
 ```
 
 ---
 
 ## Future Enhancements
 
-- Enhancement 1
-
-- Enhancement 2
+- Integrate NoC architecture for better scalability between components
+- Add AXI4-Lite interfaces and support for standard IP integration
+- Develop custom logic analyzer IP with AXI-stream output
+- Expand to multi-core RISC-V with shared cache and interconnect
+- Implement a web-based waveform viewer for post-simulation analysis
